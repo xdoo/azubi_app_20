@@ -1,18 +1,25 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-container>
+    <v-row class="pt-16">
+      <h2 class="display-3">Unsere Aktionen</h2>
+    </v-row>
+    <action-card-set></action-card-set>
+  </v-container>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+<script lang="ts">
+import Vue from "vue"
+import { Component } from "vue-property-decorator"
 
-export default {
-  name: 'Home',
+// components
+import ActionCardSet from "@/components/ActionCardSet.vue"
+
+@Component({
   components: {
-    HelloWorld
+    ActionCardSet
   }
+})
+export default class Home extends Vue {
+
 }
 </script>
