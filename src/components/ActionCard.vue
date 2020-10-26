@@ -16,13 +16,10 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn
-        :to="{ path: 'register', query: { id: action.id}}"
+      <register-dialog
         :disabled="action.free > 0 ? false : true"
-        title="hier anmelden"
-        icon>
-        <v-icon>mdi-face-shimmer</v-icon>
-      </v-btn>
+        :action="action"
+      ></register-dialog>
     </v-card-actions>
   </v-card>
 </template>
@@ -33,7 +30,14 @@ import { Component, Prop } from "vue-property-decorator"
 // model
 import Action from "@/model/Action"
 
-@Component
+// Komponenten
+import RegisterDialog from "@/components/RegisterDialog.vue"
+
+@Component({
+  components: {
+    RegisterDialog
+  }
+})
 export default class ActionCard extends Vue{
 
   @Prop() action!: Action
