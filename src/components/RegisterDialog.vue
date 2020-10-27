@@ -52,7 +52,7 @@
           >
           <v-row
               align="center"
-              v-for="kid in kids"
+              v-for="kid in tempKids"
               :key="kid.firstname"
             >
               <v-col cols="4">
@@ -76,7 +76,7 @@
               </v-col>
               <v-col cols="2">
                 <v-btn
-                  @click="addKid()" 
+                  @click="removeKid(kid.firstname)" 
                   icon>
                   <v-icon>mdi-delete-outline</v-icon>
                 </v-btn>
@@ -128,8 +128,15 @@
           <v-btn
             color="primary"
             v-if="isKidsEmpty || modifyKids"
+            @click="storeKids()"
           >
             speichern
+          </v-btn>
+          <v-btn 
+            v-if="!isKidsEmpty || !modifyKids"
+            @click="workOnKids()"
+            depressed>
+            <v-icon>mdi-face</v-icon>
           </v-btn>
           <v-btn
             text
@@ -158,6 +165,7 @@ export default class RegisterDialog extends Vue {
   dialog = false
   kid = new Kid()
   modifyKids = false
+  tempKids = Array<Kid>()
 
   get kids(): Kid[] {
     return this.$store.getters.getKids
@@ -168,9 +176,25 @@ export default class RegisterDialog extends Vue {
   }
 
   addKid() {
-    this.$store.dispatch("addKid", this.kid)
+    this.tempKids.push(this.kid)
     this.modifyKids = true
     this.kid = new Kid()
+  }
+
+  removeKid(name: string) {
+    this.tempKids.forEach((kid: Kid, index: number) => {
+      if(kid.firstname === name) this.tempKids.splice(index, 1)
+    })
+  }
+
+  workOnKids () {
+    this.modifyKids = true
+    this.tempKids = this.kids
+  }
+
+  storeKids() {
+    this.$store.dispatch("changeKids", this.tempKids)
+    this.modifyKids = false
   }
 
   register() {

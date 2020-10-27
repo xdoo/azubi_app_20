@@ -12,7 +12,7 @@
       <v-card-subtitle class="white--text">{{ action.free }} freie Plätze</v-card-subtitle>
     </v-img>
     <v-card-text>
-      {{action.description}}<router-link :to="{ path: 'action', query: { id: action.id}}">mehr...</router-link>
+      {{action.description}}<router-link :to="{ path: 'action', query: { id: action.id}}"> mehr...</router-link>
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>

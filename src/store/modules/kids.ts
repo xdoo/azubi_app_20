@@ -21,16 +21,22 @@ const mutations = {
   addKid (state: any, payload: Kid) {
     state.kids.push(payload)
   },
+  changeKids (state: any, payload: Kid[]) {
+    state.kids = payload
+  },
   removeKid (state: any, payload: string) {
     state.kids.forEach((kid: Kid, index: number) => {
       if(kid.firstname === payload) state.kids.splice(index, 1)
-    });
+    })
   }
 }
 
 const actions = {
   addKid (context: any, payload: Kid) {
     context.commit("addKid", payload)
+  },
+  changeKids(context: any, payload: Kid[]){
+    context.commit("changeKids", payload)
   },
   removeKid (context: any, firstname: string) {
     context.commit("removeKid", firstname)
